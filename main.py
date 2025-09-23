@@ -43,7 +43,8 @@ app.layout = html.Div(
         html.P(),
         html.Label("Filename"),
         html.Br(),
-        dcc.Input(id="filename-input", type="text", placeholder="results.xlsx"),
+        dcc.Input(id="filename-input", type="text", placeholder="results"),
+        html.Div(".xlsx", style={"display": "inline-block"}),
         html.P(),
         html.Button(
             id="download-button", children="Download", style={"margin": "auto"}
@@ -135,7 +136,7 @@ def update_graph(_, nr_upload: str, results_upload: str, filename: str):
 
         return dcc.send_bytes(
             output_bytes.read(),
-            filename or "results.xlsx",
+            f"{filename or 'results'}.xlsx",
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             index=False,
         )
