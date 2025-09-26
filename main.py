@@ -13,7 +13,7 @@ server = app.server
 app.layout = html.Div(
     [
         html.H1("IPPT NR Generator"),
-        html.Label(children='NR (Excel file with column headers "4D", "NRIC", "NAME")'),
+        html.Label(children='NR (Excel file with column headers that include "NRIC")'),
         dcc.Upload(
             id="nr-upload",
             children="Drag and drop or click to select files",
@@ -127,7 +127,7 @@ def update_graph(_, nr_upload: str, results_upload: str, filename: str):
             "award_ind": "Result",
         },
     )
-    nr = pl.read_excel(BytesIO(b64decode(nr_content)), columns=["4D", "NRIC", "NAME"])
+    nr = pl.read_excel(BytesIO(b64decode(nr_content)))
     df = nr.join(ippt, on="NRIC", how="left").drop("NRIC")
 
     with BytesIO() as output_bytes:
