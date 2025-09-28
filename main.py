@@ -57,21 +57,19 @@ app.layout = html.Div(
 
 @app.callback(
     Output("nr-upload", "children"),
-    Input("nr-upload", "contents"),
-    State("nr-upload", "filename"),
+    Input("nr-upload", "filename"),
     prevent_initial_call=True,
 )
-def update_nr_upload(_, filename: str):
+def update_nr_upload(filename: str):
     return f"Uploaded {filename}"
 
 
 @app.callback(
     Output("results-upload", "children"),
-    Input("results-upload", "contents"),
-    State("results-upload", "filename"),
+    Input("results-upload", "filename"),
     prevent_initial_call=True,
 )
-def update_results_upload(_, filename: str):
+def update_results_upload(filename: str):
     return f"Uploaded {filename}"
 
 
