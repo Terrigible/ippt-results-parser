@@ -109,7 +109,11 @@ def update_graph(_, nr_upload: str, results_upload: str, filename: str):
         pl.col("fifth_station_scr").str.replace(r"\.", ":"),
         pl.when(pl.col("award_ind") == "N")
         .then("overall_result")
-        .otherwise("award_ind")
+        .otherwise(
+            pl.concat_str(
+                pl.col("overall_result"), pl.lit("("), pl.col("award_ind"), pl.lit(")")
+            )
+        )
         .alias("award_ind"),
     ).drop("overall_result")
     ippt = ippt.rename(
